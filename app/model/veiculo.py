@@ -1,21 +1,11 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, CHAR, ForeignKey
 from app.database import Base
 
-
-class Veiculo(Base):
+class VeiculoModel(Base):
     __tablename__ = "veiculo"
 
-    id_veiculo = Column(Integer, primary_key=True)
-    placa = Column(String(7))
-
-    id_modelo_veiculo = Column(
-        Integer,
-        ForeignKey("modelo_veiculo.id_modelo_veiculo")
-    )
-
+    id_veiculo = Column(Integer, primary_key=True, autoincrement=True)
+    placa = Column(CHAR(7))
+    id_modelo = Column(Integer, ForeignKey("modelo_veiculo.id_modelo"))
     tem_seguro = Column(Integer)
-
-    id_classe_veiculo = Column(
-        Integer,
-        ForeignKey("classe_veiculo.id_classe_veiculo")
-    )
+    id_classe = Column(Integer, ForeignKey("classe.id_classe"))

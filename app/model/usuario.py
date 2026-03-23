@@ -1,14 +1,14 @@
-from sqlalchemy import Column, BigInteger, String, Date
+from sqlalchemy import VARCHAR, Column, BigInteger, Text, String, CHAR, Date, SmallInteger
 from app.database import Base
 
-
-class Usuario(Base):
+class UsuarioModel(Base):
     __tablename__ = "usuario"
 
-    id_usuario = Column(BigInteger, primary_key=True, index=True)
-    nome = Column(String(255))
-    cpf = Column(String(11))
+    id_usuario = Column(BigInteger, primary_key=True, autoincrement=True)
+    nome = Column(Text)
+    cpf = Column(CHAR(11), unique=True)
     data_nascimento = Column(Date)
-    senha = Column(String(64))
-    email = Column(String(255))
-    username = Column(String(50))
+    idade = Column(SmallInteger)
+    senha = Column(CHAR(64))
+    email = Column(VARCHAR(255), unique=True)
+    usuario = Column(String(50), unique=True)

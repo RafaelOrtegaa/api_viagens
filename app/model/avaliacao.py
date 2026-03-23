@@ -1,11 +1,10 @@
-from sqlalchemy import Column, BigInteger, DECIMAL, DateTime
+from sqlalchemy import Column, BigInteger, Integer, DateTime
 from app.database import Base
-
 
 class AvaliacaoModel(Base):
     __tablename__ = "avaliacao"
 
     id_avaliacao = Column(BigInteger, primary_key=True, autoincrement=True)
-    nota_passageiro = Column(DECIMAL(3,2))
-    nota_motorista = Column(DECIMAL(3,2))
-    datahora_avaliacao = Column(DateTime)
+    nota_passageiro = Column(Integer)
+    nota_motorista = Column(Integer)
+    datahora_limite = Column(DateTime)

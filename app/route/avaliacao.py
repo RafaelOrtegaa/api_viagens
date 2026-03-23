@@ -14,33 +14,39 @@ async def criar_avaliacao(dados: AvaliacaoSchema, db: Session = Depends(get_db))
     db.refresh(nova_avaliacao)
     return nova_avaliacao
 
-@avaliacao.get('/avaliações')
-async def listar_avaliacoes(db: Session = Depends(get_db)):
+@avaliacao.get("/")
+async def listar_avaliacao(db: Session = Depends(get_db)):
     return db.query(AvaliacaoModel).all()
 
-@avaliacao.delete('/delete/{id}')
+@avaliacao.delete("{id}/delete")
 async def deletar_avaliacao(id: int, db: Session = Depends(get_db)):
-   id = db.query(AvaliacaoModel).filter(AvaliacaoModel.id_avaliacao == id).first()
-
-   if not id:
-       raise HTTPException(
-            status_code = status.HTTP_404_NOT_FOUND, 
-            detail = f"Avaliação com ID {id} não encontrada"
-            )
-   
-   db.delete(id)
-   db.commit()
-   return('Pronto, id deletado')
-
-@avaliacao.put("/update/{id}")
-async def atualizar_avaliacao(id: int, dados: AvaliacaoSchema, db: Session = Depends(get_db)):
-    avaliacao = db.query(AvaliacaoModel).filter(AvaliacaoModel.id_avaliacao == id).first()
-    if not avaliacao:
+    avaliacao_encontrada = db.query(AvaliacaoModel).filter(AvaliacaoModel.id_avaliacao == id).first()
+    
+    if not avaliacao_encontrada:
         raise HTTPException(
-            status_code = status.HTTP_404_NOT_FOUND, 
-            detail = f"Avaliação com ID {id} não encontrada"
-            )
-
-    db.query(AvaliacaoModel).filter(AvaliacaoModel.id_avaliacao == id).update(dados.model_dump(exclude_unset=True))
+            status.HTTP_404_NOT_FOUND,
+            detail = f"a avaliacao com id {id} nao foi encontrada.")
+    
+    db.delete(avaliacao_encontrada)
     db.commit()
-    return (dados)
+    
+    return {"avaliacao deletada com sucesso"}
+
+@avaliacao.put("/{id}/update")
+async def atualizar_avaliacao(id: int, dados: AvaliacaoSchema = Depends(), db: Session = Depends(get_db)):
+    avaliacao_encontrada = db.query(AvaliacaoModel).filter(AvaliacaoModel.id_avaliacao == id).first()
+
+    if not avaliacao_encontrada:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"avaliacao com {id} nao encontrada",
+        )       
+    
+    dados_atualizados = dados.model_dump(exclude_unset=True)
+
+    for chave, valor in dados_atualizados.items():
+        setattr(avaliacao_encontrada, chave, valor)
+
+    db.commit()
+    db.refresh(avaliacao_encontrada)
+    return avaliacao_encontrada

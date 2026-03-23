@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String, DECIMAL
+from sqlalchemy import Column, Integer, String, Numeric
 from app.database import Base
 
+class ClasseModel(Base):
+    __tablename__ = "classe"
 
-class ClasseVeiculo(Base):
-    __tablename__ = "classe_veiculo"
-
-    id_classe_veiculo = Column(Integer, primary_key=True, autoincrement=True)
+    id_classe = Column(Integer, primary_key=True, autoincrement=True)
     nome_classe = Column(String(45))
-    fator_preco = Column(DECIMAL(10,2))
+    fator_preco = Column(Numeric(10, 2))
+    

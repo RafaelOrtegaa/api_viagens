@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from decimal import Decimal
 
-class TipoCombustivelSchema(BaseModel):
+class MetodoPagamentoSchema(BaseModel):
+    
     descricao: str
-    fator_carbono: Decimal
+    nome_financeira: str
 
     class Config:
         from_attributes = True
