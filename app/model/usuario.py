@@ -1,6 +1,7 @@
 from sqlalchemy import VARCHAR, Column, BigInteger, Text, String, CHAR, Date, SmallInteger
 from app.database import Base
 
+# Representa tabela no banco
 class UsuarioModel(Base):
     __tablename__ = "usuario"
 
@@ -12,3 +13,7 @@ class UsuarioModel(Base):
     senha = Column(CHAR(64))
     email = Column(VARCHAR(255), unique=True)
     usuario = Column(String(50), unique=True)
+
+
+# Define os modelos do banco de dados (tabelas).
+# Ex: classes que representam entidades como usuário, viagem, etc.

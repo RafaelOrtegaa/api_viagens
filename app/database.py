@@ -1,13 +1,16 @@
+# Configura a conexão com o banco de dados.
+
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from pathlib import Path
 from os import getenv
 from dotenv import load_dotenv
  
+# Carrega env 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
  
-# Inicialização (criação do SCHEMA no banco de dados)
+# Inicialização e criação do SCHEMA BDD
 SERVER_URL = f"mysql+pymysql://{getenv('DB_USER')}:{getenv('DB_PSWD')}@{getenv('DB_HOST')}"
 engine_server = create_engine(SERVER_URL)
  

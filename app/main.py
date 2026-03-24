@@ -1,3 +1,6 @@
+# Arquivo principal que inicia a aplicação e registra as rotas.
+
+# Importações 
 from fastapi import FastAPI
 from app.database import Base, engine
 from app.route.pagamentos import pagamento
@@ -14,10 +17,14 @@ from app.route.tipo_combustivel import tipo_combustivel
 from app.route.modelo_veiculo import modelo_veiculo
 from app.route.metodo_pagamento import metodo_pagamento
 
+# Cria tabelas automaticamente no banco
 Base.metadata.create_all(bind=engine)
 
+
+# Inicializa 
 app = FastAPI()
 
+# Registra as rotas 
 app.include_router(usuario, prefix="/usuarios", tags=["Usuários"])
 app.include_router(passageiro, prefix="/passageiros", tags=["Passageiros"])
 app.include_router(motorista, prefix="/motoristas", tags=["Motoristas"])

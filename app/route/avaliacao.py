@@ -50,3 +50,4 @@ async def atualizar_avaliacao(id: int, dados: AvaliacaoSchema = Depends(), db: S
     db.commit()
     db.refresh(avaliacao_encontrada)
     return avaliacao_encontrada
+

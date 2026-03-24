@@ -9,3 +9,4 @@ class AvaliacaoSchema(BaseModel):
 
     class Config:
         from_attributes = True
+

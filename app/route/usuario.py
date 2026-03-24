@@ -4,6 +4,7 @@ from app.database import get_db
 from app.model.usuario import UsuarioModel
 from app.schema.usuario import UsuarioSchema
 
+# Agrupa as rotas de usuário
 usuario = APIRouter()
 
 @usuario.post("/")
@@ -43,3 +44,6 @@ async def atualizar_usuario(id: int, dados: UsuarioSchema = Depends(), db: Sessi
     db.commit()
     db.refresh(usuario_encontrado)
     return usuario_encontrado
+
+# Contém as rotas da API (endpoints).
+# Ex: GET, POST, PUT, DELETE.

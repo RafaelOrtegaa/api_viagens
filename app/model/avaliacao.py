@@ -8,3 +8,4 @@ class AvaliacaoModel(Base):
     nota_passageiro = Column(Integer)
     nota_motorista = Column(Integer)
     datahora_limite = Column(DateTime)
+
